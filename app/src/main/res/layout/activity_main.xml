@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.MainActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/main_content_cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:minHeight="56dp"
+        app:cardCornerRadius="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/main_content_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/main_send_contact_fab"
+                android:background="@null"
+                android:hint="短信内容"
+                android:maxLength="70"
+                android:minHeight="56dp"
+                android:padding="8dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/main_send_contact_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_send_white_24dp"
+                app:fabSize="mini" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_contact_list_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/main_content_cv" />
+
+
+</RelativeLayout>
