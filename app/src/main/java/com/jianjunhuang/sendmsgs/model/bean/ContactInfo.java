@@ -1,8 +1,19 @@
 package com.jianjunhuang.sendmsgs.model.bean;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+
+@Entity
 public class ContactInfo {
     private String name;
+    @PrimaryKey
+    @NonNull
     private String phone;
+    @Ignore
     private boolean isSelected = false;
 
     public String getName() {

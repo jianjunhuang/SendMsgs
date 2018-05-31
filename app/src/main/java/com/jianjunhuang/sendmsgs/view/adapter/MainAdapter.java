@@ -50,17 +50,18 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             viewHolder.delImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO
-                    Toast.makeText(mContext, "del", Toast.LENGTH_SHORT).show();
                     mListener.onDelContact(info, position);
                 }
             });
             viewHolder.nameTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO
                     info.setSelected(!info.isSelected());
-                    mListener.onSelectedContact(info, position);
+                    if (info.isSelected()) {
+                        mListener.onSelectedContact(info, position);
+                    } else {
+                        mListener.onCancelSelectedContact(info, position);
+                    }
                     notifyDataSetChanged();
                 }
             });
@@ -80,10 +81,8 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     if (position == mList.size() + 1) {
-                        Toast.makeText(mContext, "add from contacts", Toast.LENGTH_SHORT).show();
                         mListener.onAddContactInSystem();
                     } else {
-                        Toast.makeText(mContext, "add your self", Toast.LENGTH_SHORT).show();
                         mListener.onAddContactByHand();
                     }
                 }
@@ -127,6 +126,11 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void setAdapterListener(AdapterListener adapterListener) {
         this.mListener = adapterListener;
+    }
+
+    public void setOnDataChange(List<ContactInfo> contactInfos) {
+        this.mList = contactInfos;
+        notifyDataSetChanged();
     }
 
     private AdapterListener mListener;
