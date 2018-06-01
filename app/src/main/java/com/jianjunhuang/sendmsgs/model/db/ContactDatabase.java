@@ -15,7 +15,7 @@ public abstract class ContactDatabase extends RoomDatabase {
     public abstract ContactsDao contactsDao();
 
     public static void init(Context context) {
-        INSTANCE = Room.inMemoryDatabaseBuilder(context, ContactDatabase.class).build();
+        INSTANCE = Room.databaseBuilder(context, ContactDatabase.class, "contact").build();
     }
 
     public static ContactDatabase getDatabase() {

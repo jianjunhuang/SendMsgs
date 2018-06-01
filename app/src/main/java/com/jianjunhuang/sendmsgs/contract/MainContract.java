@@ -15,7 +15,7 @@ public interface MainContract {
 
         void onInsertContactSuccess(T t);
 
-        void onInsertContactFailed();
+        void onInsertContactFailed(String reason);
 
         void onDelContactSuccess();
 
@@ -45,7 +45,7 @@ public interface MainContract {
 
         void onInsertContactSuccess(T t);
 
-        void onInsertContactFailed();
+        void onInsertContactFailed(String reason);
 
         void onDelContactSuccess();
 
