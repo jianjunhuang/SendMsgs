@@ -1,5 +1,8 @@
 package com.jianjunhuang.sendmsgs.model.impl;
 
+import android.os.AsyncTask;
+import android.os.Handler;
+
 import com.jianjunhuang.sendmsgs.contract.MainContract;
 import com.jianjunhuang.sendmsgs.model.bean.ContactInfo;
 import com.jianjunhuang.sendmsgs.model.db.ContactDatabase;
@@ -10,10 +13,10 @@ import java.util.List;
 public class ContactModel implements MainContract.Model<ContactInfo> {
 
     private MainContract.Callback<ContactInfo> mCallback;
-    private ContactsDao dao;
+    private Handler mHandler;
 
     public ContactModel() {
-        dao = ContactDatabase.getDatabase().contactsDao();
+        mHandler = new Handler();
     }
 
     @Override
@@ -23,22 +26,58 @@ public class ContactModel implements MainContract.Model<ContactInfo> {
 
     @Override
     public void getContact() {
-        List<ContactInfo> contactInfos = dao.getContacts();
-        if (contactInfos != null) {
-            mCallback.onGetContactSuccess(contactInfos);
-        }
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                ContactsDao dao = ContactDatabase.getDatabase().contactsDao();
+                final List<ContactInfo> contactInfos = dao.getContacts();
+                if (contactInfos != null) {
+                   mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mCallback.onGetContactSuccess(contactInfos);
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     @Override
-    public void addContact(ContactInfo contactInfo) {
-        dao.insert(contactInfo);
-        mCallback.onInsertContactSuccess(contactInfo);
+    public void addContact(final ContactInfo contactInfo) {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                ContactsDao dao = ContactDatabase.getDatabase().contactsDao();
+                dao.insert(contactInfo);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCallback.onInsertContactSuccess(contactInfo);
+                    }
+                });
+            }
+        });
+
     }
 
     @Override
-    public void delContact(ContactInfo contactInfo) {
-        dao.delete(contactInfo);
-        mCallback.onDelContactSuccess();
+    public void delContact(final ContactInfo contactInfo) {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                ContactsDao dao = ContactDatabase.getDatabase().contactsDao();
+                dao.delete(contactInfo);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCallback.onDelContactSuccess();
+                    }
+                });
+            }
+        });
+
     }
 
     @Override

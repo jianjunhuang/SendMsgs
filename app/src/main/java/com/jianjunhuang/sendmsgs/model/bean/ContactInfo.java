@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 
-@Entity
+@Entity(tableName = "contact_info")
 public class ContactInfo {
     private String name;
     @PrimaryKey

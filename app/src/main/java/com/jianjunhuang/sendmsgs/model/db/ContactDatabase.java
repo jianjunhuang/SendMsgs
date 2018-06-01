@@ -7,7 +7,7 @@ import android.content.Context;
 
 import com.jianjunhuang.sendmsgs.model.bean.ContactInfo;
 
-@Database(entities = {ContactInfo.class}, version = 1 , exportSchema = false)
+@Database(entities = {ContactInfo.class}, version = 1, exportSchema = false)
 public abstract class ContactDatabase extends RoomDatabase {
 
     private static ContactDatabase INSTANCE;
@@ -15,9 +15,7 @@ public abstract class ContactDatabase extends RoomDatabase {
     public abstract ContactsDao contactsDao();
 
     public static void init(Context context) {
-        INSTANCE = Room.inMemoryDatabaseBuilder(context, ContactDatabase.class)
-                .allowMainThreadQueries()
-                .build();
+        INSTANCE = Room.inMemoryDatabaseBuilder(context, ContactDatabase.class).build();
     }
 
     public static ContactDatabase getDatabase() {
