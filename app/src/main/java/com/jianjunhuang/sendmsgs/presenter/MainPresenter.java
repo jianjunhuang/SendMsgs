@@ -41,8 +41,8 @@ public class MainPresenter implements MainContract.Presenter<ContactInfo> {
             }
 
             @Override
-            public void onInsertContactFailed() {
-                mView.onInsertContactFailed();
+            public void onInsertContactFailed(String reason) {
+                mView.onInsertContactFailed(reason);
             }
 
             @Override
@@ -70,11 +70,11 @@ public class MainPresenter implements MainContract.Presenter<ContactInfo> {
     @Override
     public void addContact(ContactInfo contactInfo) {
         if (contactInfo == null) {
-            mView.onInsertContactFailed();
+            mView.onInsertContactFailed("请输入信息");
             return;
         }
         if (contactInfo.getPhone() == null || "".equals(contactInfo.getPhone())) {
-            mView.onInsertContactFailed();
+            mView.onInsertContactFailed("请输入电话");
             return;
         }
         mModel.addContact(contactInfo);
